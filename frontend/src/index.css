@@ -1,8 +1,12 @@
 body {
-  background-color: rgb(172, 172, 172);
+  background-color: silver;
 }
 
 main {
   min-height: 80vh;
+}
+
+a {
+  text-decoration: none;
 }
 
