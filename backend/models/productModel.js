@@ -15,7 +15,7 @@ const productSchema = mongoose.Schema(
       category: { type: String, required: true },
       description: { type: String, required: true },
       reviews: [reviewSchema],
-      ratings: { type: Number, required: true, default: 0 },//average rating of all the review ratings for the product
+      rating: { type: Number, required: true, default: 0 },//average rating of all the review ratings for the product
       numReviews: { type: Number, required: true, default: 0 },
       price: { type: Number, required: true, default: 0 },
       countInStock: { type: Number, required: true, default: 0 }
