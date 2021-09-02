@@ -6,6 +6,27 @@ main {
   min-height: 80vh;
 }
 
+h1 {
+  font-size: 26px;
+  padding: 1.5px 0;
+}
+
+h2 {
+  font-size: 22px;
+  padding: 1.2px 0;
+}
+
+h3 {
+  font-size: 20px;
+  padding: 1.2px 0;
+}
+
+h4 {
+  font-size: 17px;
+  font-weight: normal;
+  padding: 1.2px 0;
+}
+
 a {
   text-decoration: none;
 }

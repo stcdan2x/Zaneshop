@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem } from "react-bootstrap";
+import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, FormControl } from "react-bootstrap";
 import Rating from "../components/Rating";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -17,6 +17,13 @@ const ProductScreen = (props) => {
    useEffect(() => {
       dispatch( listProductDetails(props.match.params.id) )   
    }, [dispatch, props]);
+
+   const [qty, setQty] = useState(1);
+
+   const addToCartHandler = () => {
+      setQty(1);
+      props.history.push(`/cart/${props.match.params.id}?qty=${qty}`)
+   }
 
    return (
       <>
@@ -56,8 +63,25 @@ const ProductScreen = (props) => {
                               </Col>
                            </Row>
                         </ListGroupItem>
+                        {product.countInStock > 0 && (
+                           <ListGroupItem>
+                              <Row>
+                                 <Col>Qty</Col>
+                                 <Col>
+                                    <FormControl as="select" value={ qty } onChange={
+                                       (e) => setQty(e.target.value)}>
+                                          {
+                                             Array.from({length: product.countInStock}, (v, i) => i)
+                                             .map(x => (<option key={x + 1} value={x + 1}>{ x + 1}</option>
+                                             ))   
+                                          }
+                                    </FormControl>
+                                 </Col>
+                              </Row>
+                           </ListGroupItem>
+                        )}
                         <ListGroupItem className="d-grid">
-                           <Button disabled={product.countInStock === 0} >
+                           <Button onClick={addToCartHandler} disabled={product.countInStock === 0} >
                               Add to Cart
                            </Button>
                         </ListGroupItem>
