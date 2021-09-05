@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import productRouter from "./routers/productRouter.js";
+import userRouter from "./routers/userRouter.js";
 import { errorHandler, handleNotFound } from "./middleware/errorMiddleware.js";
 
 
@@ -9,13 +10,16 @@ import { errorHandler, handleNotFound } from "./middleware/errorMiddleware.js";
 dotenv.config();
 connectDB();
 
-const app = express()
+const app = express();
 
 app.get("/", ( req, res ) => {
    res.send("API is active!");
 });
 
+app.use(express.json());
+
 app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
 
 //mw to add custom error handler for requests for unrecognized routes
 app.use(handleNotFound);
