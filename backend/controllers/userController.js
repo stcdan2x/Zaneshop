@@ -27,6 +27,7 @@ export const authUser = asyncHandler( async (req, res) => {
 //access:   Private
 export const getUserProfile = asyncHandler( async (req, res) => {
    const user = await User.findById(req.user._id);
+
    if (user) {
       res.json({
          _id: user._id,
@@ -45,6 +46,7 @@ export const getUserProfile = asyncHandler( async (req, res) => {
 //access:   Private
 export const updateUserProfile = asyncHandler( async (req, res) => {
    const user = await User.findById(req.user._id);
+
    if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;

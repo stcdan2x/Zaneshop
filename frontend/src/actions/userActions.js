@@ -118,7 +118,29 @@ export const updateProfile = (user) => async (dispatch, getState) => {
 
       const { userLogin: { userInfo } } = getState();
 
-      const config = {
+      const response = await axios({
+         url: "/api/users/profile",
+         method: "PUT",
+         headers: {
+            "Content-Type": "application/json" ,
+            Authorization: `Bearer ${userInfo.token}`
+         },
+         data: user 
+      });
+
+      dispatch({
+         type: USER_UPDATE_PROFILE_SUCCESS,
+         payload: response.data,
+       })
+
+       dispatch({
+         type: USER_LOGIN_SUCCESS,
+         payload: response.data,
+       })
+
+       localStorage.setItem("userInfo", JSON.stringify(response.data))
+      
+/*       const config = {
          headers: {
            'Content-Type': 'application/json',
            Authorization: `Bearer ${userInfo.token}`,
@@ -126,7 +148,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
        }
    
        const { data } = await axios.put(`/api/users/profile`, user, config)
-   
+       console.log(data);
        dispatch({
          type: USER_UPDATE_PROFILE_SUCCESS,
          payload: data,
@@ -137,7 +159,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
          payload: data,
        })
 
-       localStorage.setItem("userInfo", JSON.stringify(data))
+       localStorage.setItem("userInfo", JSON.stringify(data)) */
 
    } catch (error) {
       dispatch({
