@@ -28,10 +28,13 @@ const orderSchema = mongoose.Schema(
       },
       paymentMethod: { type: String, required: true },
       paymentResult: {
-         id: { type: String },
+         id: { type: String },//paypal transactionID
          status: { type: String },
          update_time: { type: String },
-         email_address: { type: String }
+         email_address: { type: String },
+         payerID: { type: String },
+         currency: { type: String },
+         amtPaid: { type: Number }
       },
       taxPrice: { type: Number, required: true, default: 0.0 },
       totalPrice: { type: Number, required: true, default: 0.0 },

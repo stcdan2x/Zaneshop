@@ -1,9 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import { errorHandler, handleNotFound } from "./middleware/errorMiddleware.js";
 import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js";
-import { errorHandler, handleNotFound } from "./middleware/errorMiddleware.js";
+import orderRouter from "./routers/orderRouter.js";
 
 
 
@@ -12,14 +13,19 @@ connectDB();
 
 const app = express();
 
+app.use(express.json()); //body parsing
+
 app.get("/", ( req, res ) => {
    res.send("API is active!");
 });
 
-app.use(express.json());
+app.get("/api/config/paypal", ( req, res ) => {
+   res.send(process.env.PAYPAL_CLIENT_ID)
+})
 
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
+app.use("/api/orders", orderRouter);
 
 //mw to add custom error handler for requests for unrecognized routes
 app.use(handleNotFound);
