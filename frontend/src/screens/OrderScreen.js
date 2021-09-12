@@ -1,17 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, Col, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getOrderDetails, payOrder } from "../actions/orderActions.js";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
+import { getOrderDetails, payOrder } from "../actions/orderActions.js";
 import { ORDER_PAY_RESET } from "../constants/orderConstants.js";
-import { PayPalButtons } from "@paypal/react-paypal-js";
 
 
 const OrderScreen = (props) => {
    const orderId = props.match.params.id;
+   const clientId = "AVYU8OIVFqKKgN99pBXA5_ZbSYo71C4gQkc4PUdT48qUscFdwRYGmR6CDaipULvJ8hjzX1-YSkkN3XGp";
 
    const [sdkReady, setSdkReady] = useState(true);
 
@@ -35,35 +35,21 @@ const OrderScreen = (props) => {
    }
 
    useEffect(() => {
-      const addPayPalScript = async () => {
-         const { data: clientId } = await axios.get("/api/config/paypal");
-         const script = document.createElement("script");
-         script.type = "type/javascript";
-         script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-         script.async = true;
-         script.onload = () => {setSdkReady(true)};
-         document.body.appendChild(script);
-      }
-
-      if (!order || successPay ) {
+       if (!order || successPay) {
          dispatch({ type: ORDER_PAY_RESET })
          dispatch(getOrderDetails(orderId))
-      } else if (!order.isPaid) {
-         if (!window.paypal) {
-           addPayPalScript()
-         } else {
-           setSdkReady(true)
+       } else if (!order.isPaid) {
+         if (window.paypal) {
+            setSdkReady(true)
          }
-      }
-      }, [dispatch, orderId, successPay, order])
-
+       }
+   }, [dispatch, orderId, successPay, order]);
       
    const successPaymentHandler = (paymentResult) => {   
       dispatch(payOrder(orderId, paymentResult));
       alert("Transaction completed successfully");
-   }
+   };
       
-
    /* const runOnApprove = (data, actions) => { actions.order.capture()
       .then(() => { 
          successPaymentHandler(data.orderID);
@@ -71,6 +57,7 @@ const OrderScreen = (props) => {
 
       return (
          loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
+         <PayPalScriptProvider options={{"client-id": clientId}}>
             <>
                <h1>Order # {order._id}</h1>
                <Row>
@@ -190,6 +177,7 @@ const OrderScreen = (props) => {
                   </Col>
                </Row>
             </>
+         </PayPalScriptProvider>
       );
 };
 
