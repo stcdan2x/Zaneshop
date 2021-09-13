@@ -45,7 +45,6 @@ const deleteHandler = (id, name) => {
                      <th>NAME</th>
                      <th>EMAIL</th>
                      <th>ADMIN</th>
-                     <th>ID</th>
                      <th></th>
                   </tr>
                </thead>
@@ -63,11 +62,11 @@ const deleteHandler = (id, name) => {
                         <td>
                         <LinkContainer to={`/admin/user/${user._id}/edit`} >
                            <Button variant="light" className="btn-sm">
-                              <i className="fas fa-edit"></i>
+                              <i className="ss fas fa-pencil-alt"></i>
                            </Button>
                         </LinkContainer>
                         <Button variant="danger" className="btn-sm" onClick={() => deleteHandler(user._id, user.name)}>
-                           <i className="fas fa-trash"></i>
+                           <i className="ss fas fa-trash"></i>
                         </Button>
                         </td>
                      </tr>

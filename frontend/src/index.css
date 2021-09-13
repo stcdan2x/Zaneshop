@@ -36,3 +36,16 @@ a {
   font-weight: bold;
   margin-right: 10px;
 }
+
+i.ss {   
+  width: 12px;
+  text-align:center;
+  vertical-align:middle;
+}
+/*only :after works*/
+i.ss:after {
+  content:'';
+  padding-top:100%;
+  display:inline-block;
+  vertical-align:middle;
+}

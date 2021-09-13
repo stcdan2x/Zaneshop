@@ -1,10 +1,12 @@
 import express from "express";
+import path from "path";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import { errorHandler, handleNotFound } from "./middleware/errorMiddleware.js";
 import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js";
 import orderRouter from "./routers/orderRouter.js";
+import uploadRouter from "./routers/uploadRouter.js";
 
 
 
@@ -26,6 +28,10 @@ app.get("/api/config/paypal", ( req, res ) => {
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/upload", uploadRouter);
+
+const __dirname = path.resolve(); //fix for using __dirname with es modules
+app.use("/static", express.static(path.join(__dirname, "/uploads"))); //used /static as virtual path prefix
 
 //mw to add custom error handler for requests for unrecognized routes
 app.use(handleNotFound);

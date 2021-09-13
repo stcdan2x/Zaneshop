@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
@@ -16,6 +16,7 @@ const OrderScreen = (props) => {
    const [sdkReady, setSdkReady] = useState(true);
 
    const dispatch = useDispatch();
+   const location = useLocation();
 
    const orderDetails = useSelector(state => state.orderDetails);
    const { order, loading, error } = orderDetails;
@@ -43,11 +44,18 @@ const OrderScreen = (props) => {
             setSdkReady(true)
          }
        }
-   }, [dispatch, orderId, successPay, order]);
-      
+       if (successPay) {
+          alert("Transaction completed successfully");
+          /* dispatch({ type: ORDER_DETAILS_RESET }) */
+       }
+   }, [dispatch, orderId, successPay, order, location]);
+   
+   /* useEffect(() => {
+      dispatch({ type: ORDER_DETAILS_RESET })
+   }, [location]); */
+
    const successPaymentHandler = (paymentResult) => {   
       dispatch(payOrder(orderId, paymentResult));
-      alert("Transaction completed successfully");
    };
       
    /* const runOnApprove = (data, actions) => { actions.order.capture()
