@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Card, Col, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import { Button, Card, Col, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
-import { getOrderDetails, payOrder } from "../actions/orderActions.js";
-import { ORDER_PAY_RESET } from "../constants/orderConstants.js";
+import { deliverOrder, getOrderDetails, payOrder } from "../actions/orderActions.js";
+import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from "../constants/orderConstants.js";
 
 
 const OrderScreen = (props) => {
@@ -18,11 +18,17 @@ const OrderScreen = (props) => {
    const dispatch = useDispatch();
    const location = useLocation();
 
+   const userLogin = useSelector(state => state.userLogin);
+   const { userInfo } = userLogin;
+
    const orderDetails = useSelector(state => state.orderDetails);
    const { order, loading, error } = orderDetails;
    
    const orderPay = useSelector(state => state.orderPay);
    const { success:successPay, loading:loadingPay } = orderPay;
+  
+   const orderDeliver = useSelector(state => state.orderDeliver);
+   const { success:successDeliver, loading:loadingDeliver } = orderDeliver;
 
    const toUSD = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -36,9 +42,14 @@ const OrderScreen = (props) => {
    }
 
    useEffect(() => {
-       if (!order || successPay) {
-         dispatch({ type: ORDER_PAY_RESET })
-         dispatch(getOrderDetails(orderId))
+      if (!userInfo) {
+         props.history.push("/login")
+      }
+
+       if (!order || successPay || successDeliver) {
+         dispatch({ type: ORDER_PAY_RESET });
+         dispatch({ type: ORDER_DELIVER_RESET });
+         dispatch(getOrderDetails(orderId));
        } else if (!order.isPaid) {
          if (window.paypal) {
             setSdkReady(true)
@@ -48,7 +59,7 @@ const OrderScreen = (props) => {
           alert("Transaction completed successfully");
           /* dispatch({ type: ORDER_DETAILS_RESET }) */
        }
-   }, [dispatch, orderId, successPay, order, location]);
+   }, [dispatch, orderId, successPay, order, location, successDeliver, userInfo, props.history]);
    
    /* useEffect(() => {
       dispatch({ type: ORDER_DETAILS_RESET })
@@ -57,7 +68,11 @@ const OrderScreen = (props) => {
    const successPaymentHandler = (paymentResult) => {   
       dispatch(payOrder(orderId, paymentResult));
    };
-      
+   
+   const deliverHandler = () => {
+      dispatch(deliverOrder(order));
+   }
+
    /* const runOnApprove = (data, actions) => { actions.order.capture()
       .then(() => { 
          successPaymentHandler(data.orderID);
@@ -84,7 +99,7 @@ const OrderScreen = (props) => {
                               {order.shippingAddress.postalCode},{" "}
                               {order.shippingAddress.country}
                            </p>
-                           {order.isDelivered ? <Message variant="success" >Delivered on {order.paidAt}</Message> :
+                           {order.isDelivered ? <Message variant="success" >Delivered on {order.deliveredAt}</Message> :
                            <Message variant="danger" >Not yet Delivered</Message> }
                         </ListGroupItem>
                         <ListGroupItem>
@@ -179,6 +194,15 @@ const OrderScreen = (props) => {
                                  />
                                  )}
                               </ListGroup.Item>
+                           )}
+                           {loadingDeliver && <Loader />}
+                           {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                              <ListGroupItem>
+                                 <Button
+                                    onClick={deliverHandler}
+                                 >Mark As Delivered
+                                 </Button>
+                              </ListGroupItem>
                            )}
                         </ListGroup>
                      </Card>
