@@ -49,3 +49,13 @@ i.ss:after {
   display:inline-block;
   vertical-align:middle;
 }
+
+.xb {
+  height: 30px;
+  padding: 0;
+}
+
+#search-button.xb {
+  padding: 0 10px;
+  font-size: 10px;
+}

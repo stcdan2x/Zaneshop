@@ -7,16 +7,18 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 
-
-const HomeScreen = () => {
+const HomeScreen = (props) => {
    const dispatch = useDispatch();
+
+   const keyword = props.match.params.keyword
+   const pageNumber = props.match.params.pageNumber
 
    const productList = useSelector(state => state.productList);
    const { products, loading, error } = productList;
 
    useEffect( () => {
-      dispatch( listProducts() )
-   }, [dispatch]);
+      dispatch( listProducts(keyword) )
+   }, [dispatch, keyword]);
 
    return (
       <>

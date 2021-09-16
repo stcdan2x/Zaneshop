@@ -10,15 +10,18 @@ import {
 import axios from "axios";
 
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = ( keyword = "", pageNumber = "" ) => async (dispatch) => {
    try {
       dispatch({ type: PRODUCT_LIST_REQUEST })
 
-      const { data } = await axios.get("/api/products");
+      const response = await axios({
+         url: `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`,
+         method: "GET"
+      })
 
       dispatch({
          type: PRODUCT_LIST_SUCCESS,
-         payload: data
+         payload: response.data
       })
    } catch (error) {
       dispatch({
