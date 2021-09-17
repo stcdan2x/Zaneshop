@@ -1,10 +1,11 @@
 import express from "express";
-import { createProduct, createProductReview, deleteProduct, getProductById, getProducts, updateProduct } from "../controllers/productController.js";
+import { createProduct, createProductReview, deleteProduct, getProductById, getProducts, getTopProducts, updateProduct } from "../controllers/productController.js";
 import { authAdmin, protect } from "../middleware/authMiddleware.js";
 
 
 const productRouter = express.Router();
 
+productRouter.get("/top", getTopProducts);
 productRouter.get("/", getProducts);
 productRouter.post("/", protect, authAdmin, createProduct);
 productRouter.post("/:id/reviews", protect, createProductReview);

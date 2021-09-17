@@ -6,6 +6,7 @@ import { listProducts } from "../actions/productActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import Paginate from "../components/Paginate";
+import ProductCarousel from "../components/ProductCarousel";
 
 
 const HomeScreen = (props) => {
@@ -17,12 +18,15 @@ const HomeScreen = (props) => {
    const productList = useSelector(state => state.productList);
    const { products, page, pages, loading, error } = productList;
 
+
+
    useEffect( () => {
       dispatch( listProducts(keyword, pageNumber) )
    }, [dispatch, keyword, pageNumber]);
 
    return (
       <>
+         <ProductCarousel products={products} />
          <h1>Latest Products</h1>
          {loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
          (
