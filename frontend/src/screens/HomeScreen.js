@@ -26,7 +26,7 @@ const HomeScreen = (props) => {
 
    return (
       <>
-         <ProductCarousel products={products} />
+         {!keyword && <ProductCarousel />}
          <h1>Latest Products</h1>
          {loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
          (

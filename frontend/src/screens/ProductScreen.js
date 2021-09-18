@@ -32,7 +32,8 @@ const ProductScreen = (props) => {
          setComment("");
          dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
       }
-      dispatch( listProductDetails(props.match.params.id) )   
+      dispatch(listProductDetails(props.match.params.id));
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });   
    }, [dispatch, props, successCreateReview]);
 
    const addToCartHandler = () => {

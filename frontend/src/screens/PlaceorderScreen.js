@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { createOrder } from "../actions/orderActions.js";
 import CheckoutSteps from "../components/CheckoutSteps.js";
 import Message from "../components/Message.js";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants.js";
+import { USER_DETAILS_RESET } from "../constants/userConstants.js";
 
 const PlaceorderScreen = (props) => {
 const dispatch = useDispatch();
@@ -28,7 +30,9 @@ const { order, success, error } = orderCreate;
 
 useEffect(() => {
   if(success) {
-     props.history.push(`/order/${order._id}`)
+     props.history.push(`/order/${order._id}`);
+     dispatch({ type: USER_DETAILS_RESET });
+     dispatch({ type: ORDER_CREATE_RESET });
   }
 
 // eslint-disable-next-line react-hooks/exhaustive-deps

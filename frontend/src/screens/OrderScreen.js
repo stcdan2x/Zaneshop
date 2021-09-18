@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, /* useLocation */ } from "react-router-dom";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
@@ -16,7 +16,7 @@ const OrderScreen = (props) => {
    const [sdkReady, setSdkReady] = useState(true);
 
    const dispatch = useDispatch();
-   const location = useLocation();
+   /* const location = useLocation(); */
 
    const userLogin = useSelector(state => state.userLogin);
    const { userInfo } = userLogin;
@@ -46,7 +46,7 @@ const OrderScreen = (props) => {
          props.history.push("/login")
       }
 
-       if (!order || successPay || successDeliver) {
+       if (!order || successPay || successDeliver || order._id !== orderId) {
          dispatch({ type: ORDER_PAY_RESET });
          dispatch({ type: ORDER_DELIVER_RESET });
          dispatch(getOrderDetails(orderId));
@@ -59,7 +59,7 @@ const OrderScreen = (props) => {
           alert("Transaction completed successfully");
           /* dispatch({ type: ORDER_DETAILS_RESET }) */
        }
-   }, [dispatch, orderId, successPay, order, location, successDeliver, userInfo, props.history]);
+   }, [dispatch, orderId, successPay, order, successDeliver, props.history, userInfo]);
    
    /* useEffect(() => {
       dispatch({ type: ORDER_DETAILS_RESET })
@@ -197,7 +197,7 @@ const OrderScreen = (props) => {
                            )}
                            {loadingDeliver && <Loader />}
                            {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
-                              <ListGroupItem>
+                              <ListGroupItem className="d-grid">
                                  <Button
                                     onClick={deliverHandler}
                                  >Mark As Delivered

@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { createProduct, deleteProduct, listProducts } from '../actions/productActions'
 import Paginate from '../components/Paginate'
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 
 const ProductListScreen = (props) => {
@@ -32,6 +33,8 @@ const toUSD = new Intl.NumberFormat('en-US', {
 });
 
 useEffect(() => {
+   dispatch({ type: PRODUCT_CREATE_RESET })
+
    if (!userInfo.isAdmin) {
       props.history.push("/login");
    }

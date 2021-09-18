@@ -65,13 +65,16 @@ i.ss:after {
 .carousel-item-prev,
 .carousel-item.active {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .carousel-caption {
+  position: absolute;
+  top: 30%;
   width: 30%;
-  right: 10%;
-  left: auto;
-  top: 50%;
+  margin-left: auto;
+  margin-right: -4%;
 }
 
 .carousel-caption h2 {
@@ -80,14 +83,42 @@ i.ss:after {
 
 .carousel img {
   height: 50vh;
-  padding: 30px;
-  margin: 40px;
+  margin-left: 25%;
   border-radius: 30%;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 10px;
+
 }
 .carousel a {
   margin: 0;
+}
+@media (max-width: 1385px) {
+
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-caption h2 {
+    font-size: 2vw;
+    
+  }
+
+  .carousel-caption {
+    position: absolute;
+    top: 0;
+    width: auto;
+  }
+
+  .carousel img {
+    height: 50vh;
+    margin: 10% auto auto auto;
+    border-radius: 20%;
+    padding: 30px;
+  }
+
 }
 @media (max-width: 900px) {
   .carousel-caption h2 {
@@ -98,9 +129,15 @@ i.ss:after {
   .carousel-caption {
     position: absolute;
     top: 0;
-    width: 100%;
+  }
 
-    right: auto;
+  .carousel img {
+    height: 50vh;
+    padding: 30px;
+    margin: 40px;
+    border-radius: 30%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
 }
