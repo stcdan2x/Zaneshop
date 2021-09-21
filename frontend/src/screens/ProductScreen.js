@@ -7,6 +7,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { createProductReview, listProductDetails } from "../actions/productActions";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
+import Meta from "../components/Meta";
 
 
 const ProductScreen = (props) => {
@@ -52,6 +53,7 @@ const ProductScreen = (props) => {
          {loading ? <Loader /> : error ? <Message variant="danger" children={error} /> :
          (
             <>
+            <Meta title={`${product.name}  |  SkyZen`}/>
                <Row>
                   <Col xs={18} sm={10} md={6}>
                      <Image src={product.image} alt={product.name} fluid />

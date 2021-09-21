@@ -1,5 +1,5 @@
 body {
-  background-color: silver;
+  background-color: orange;
   font-size: 14px;
 }
 
@@ -61,6 +61,10 @@ i.ss:after {
 }
 
 /* carousel */
+.carousel {
+  margin-bottom: 20px;
+}
+
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item.active {
@@ -132,7 +136,7 @@ i.ss:after {
   }
 
   .carousel img {
-    height: 50vh;
+    height: auto;
     padding: 30px;
     margin: 40px;
     border-radius: 30%;

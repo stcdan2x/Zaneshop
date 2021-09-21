@@ -197,7 +197,7 @@ export const listTopProducts = () => async (dispatch) => {
          type: PRODUCT_TOP_SUCCESS,
          payload: response.data
       })
-      console.log(response.data);
+
    } catch (error) {
       dispatch({
          type: PRODUCT_TOP_FAIL,

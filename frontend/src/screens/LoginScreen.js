@@ -6,6 +6,7 @@ import { login } from "../actions/userActions.js";
 import FormContainer from "../components/FormContainer.js";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
+import Meta from "../components/Meta.js";
 
 
 const LoginScreen = (props) => {
@@ -30,6 +31,8 @@ useEffect(() => {
 }, [props.history, userInfo, redirect]);
 
    return (
+      <>
+      <Meta title="Sign In | SkyZen"  />
       <FormContainer >
          <h1 className="pt-3" >Sign In</h1>
          {error && <Message variant="danger">{error}</Message>}
@@ -66,6 +69,7 @@ useEffect(() => {
             </Col>
          </Row>
       </FormContainer>
+      </>
    )
 }
 

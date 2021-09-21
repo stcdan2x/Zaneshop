@@ -6,6 +6,7 @@ import { listUserOrders } from "../actions/orderActions.js";
 import { getUserDetails, updateProfile } from "../actions/userActions.js";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
+import Meta from "../components/Meta.js";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants.js";
 
 
@@ -60,9 +61,11 @@ const toUSD = new Intl.NumberFormat('en-US', {
    minimumFractionDigits: 2
 });
 
-   return <Row>
+   return <>
+   <Meta title={`${userInfo.name}'s Profile Details`} />
+   <Row>
       <Col md={3}>
-         <h2 className="pt-3" >User Profile</h2>
+         <h2 className="py-3" >User Profile</h2>
          {message && <Message variant="danger">{message}</Message>}
          {error && <Message variant="danger">{error}</Message>}
          {updateError && <Message variant="danger">Update Error: {updateError.split(":")[2]}</Message>}
@@ -106,14 +109,14 @@ const toUSD = new Intl.NumberFormat('en-US', {
                </Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="primary" className="mt-3" >
+            <Button type="submit" variant="primary" className="my-3" >
                Update
             </Button>
          </Form>
       </Col>
 
       <Col md={9}>
-         <h2>My Orders</h2>
+         <h2 className="pt-3">My Orders</h2>
          {loadingOrderList ? <Loader /> : errorOrderList ? <Message variant="danger">{errorOrderList}</Message> :
          (
             <Table striped bordered hover responsive className="table-sm">
@@ -151,6 +154,7 @@ const toUSD = new Intl.NumberFormat('en-US', {
          )}
       </Col>
    </Row>
+   </>
 }
 
 export default ProfileScreen;

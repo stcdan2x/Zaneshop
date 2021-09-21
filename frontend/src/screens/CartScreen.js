@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
 
 
 const CartScreen = (props) => {
@@ -32,6 +33,8 @@ const CartScreen = (props) => {
    )
 
    return (
+      <>
+      <Meta title="My Shopping Cart | SkyZen"  />
       <Row>
          <Col md={8}>
             <h1>Shopping Cart</h1>
@@ -95,6 +98,7 @@ const CartScreen = (props) => {
             </Card>
          </Col>
       </Row>
+      </>
    );
 }
 

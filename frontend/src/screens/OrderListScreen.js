@@ -5,6 +5,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listAllOrders } from '../actions/orderActions'
 import { LinkContainer } from 'react-router-bootstrap'
+import Meta from '../components/Meta'
 
 
 const OrderListScreen = (props) => {
@@ -33,6 +34,7 @@ useEffect(() => {
 
    return (
       <>
+      <Meta title={"Orders List | Admin | SkyZen"}  />
          <Row className="align-items-center" >
             <Col>
                <h1>Orders</h1>
