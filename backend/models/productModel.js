@@ -18,7 +18,8 @@ const productSchema = mongoose.Schema(
       rating: { type: Number, required: true, default: 0 },//average rating of all the review ratings for the product
       numReviews: { type: Number, required: true, default: 0 },
       price: { type: Number, required: true, default: 0 },
-      countInStock: { type: Number, required: true, default: 0 }
+      countInStock: { type: Number, required: true, default: 0 },
+      countSold: { type: Number, required: true, default: 0 }
    
    },{ timestamps: true }
 );

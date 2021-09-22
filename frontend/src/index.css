@@ -95,7 +95,7 @@ i.ss:after {
 .carousel a {
   margin: 0;
 }
-@media (max-width: 1385px) {
+@media (max-width: 1200px) {
 
   .carousel-item-next,
   .carousel-item-prev,

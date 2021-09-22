@@ -22,7 +22,8 @@ const HomeScreen = (props) => {
 
 
    useEffect( () => {
-      dispatch( listProducts(keyword, pageNumber) )
+      dispatch( listProducts(keyword, pageNumber) );
+      window.scrollTo(0, 0);
    }, [dispatch, keyword, pageNumber]);
 
    return (
