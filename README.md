@@ -1,4 +1,4 @@
-# Zaneshop (Skyzen)
+# Skyzen Online Shopping (E-Commerce)
 Shopping website using both front end and back end.
 
 Tech used: Javascript, React.js, MongoDB Atlas, Node.js and Express.js
