@@ -1,5 +1,7 @@
 # Skyzen Online Shopping (E-Commerce)
 
+Link to hosted Demo site for this project: https://skyzenapp.herokuapp.com/
+
 Shopping website using both front end and back end.
 
 Tech used: Javascript, React.js, MongoDB Atlas, Node.js and Express.js
