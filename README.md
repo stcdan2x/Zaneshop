@@ -1,4 +1,4 @@
-# Skyzen Online Shopping (E-Commerce)
+# Skyzen Online Shopping (E-Commerce with Live Chat Support)
 
 Shopping website using both front end and back end.
 Link to hosted Demo site for this project: https://skyzenapp.herokuapp.com/
