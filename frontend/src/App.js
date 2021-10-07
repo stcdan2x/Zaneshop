@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import dotenv from "dotenv";
 import Footer from "./components/Footer.js";
 import Header from "./components/Header.js";
 import HomeScreen from "./screens/HomeScreen.js";
@@ -17,42 +18,46 @@ import UserEditScreen from "./screens/UserEditScreen.js";
 import ProductListScreen from "./screens/ProductListScreen.js";
 import ProductEditScreen from "./screens/ProductEditScreen.js";
 import OrderListScreen from "./screens/OrderListScreen.js";
+import Client from "./components/Client.js";
+import Agent from "./components/Agent.js";
 
+dotenv.config();
 
 const App = () => {
+	return (
+		<Router>
+			<Header />
+			<main className="py-2">
+				<Container>
+					<Route path="/" component={HomeScreen} exact />
+					<Route path="/search/:keyword" component={HomeScreen} exact />
+					<Route path="/page/:pageNumber" component={HomeScreen} exact />
+					<Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact />
+					<Route path="/login" component={LoginScreen} />
+					<Route path="/register" component={RegisterScreen} />
+					<Route path="/profile" component={ProfileScreen} />
+					<Route path="/product/:id" component={ProductScreen} />
+					<Route path="/cart/:id?" component={CartScreen} />
+					<Route path="/shipping" component={ShippingScreen} />
+					<Route path="/payment" component={PaymentScreen} />
+					<Route path="/placeorder" component={PlaceorderScreen} />
+					<Route path="/order/:id" component={OrderScreen} />
+					<Route path="/admin/userlist" component={UserListScreen} exact />
+					<Route path="/admin/userlist/:pageNumber" component={UserListScreen} exact />
+					<Route path="/admin/user/:id/edit" component={UserEditScreen} />
+					<Route path="/admin/productlist" component={ProductListScreen} exact />
+					<Route path="/admin/productlist/:pageNumber" component={ProductListScreen} exact />
+					<Route path="/admin/product/:id/edit" component={ProductEditScreen} />
+					<Route path="/admin/orderlist" component={OrderListScreen} exact />
+					<Route path="/admin/orderlist/:pageNumber" component={OrderListScreen} exact />
+					<Route path="/agent" component={Agent} exact />
+				</Container>
+			</main>
 
-  return (
-    <Router>
-      <Header />
-        <main className="py-2" >
-          <Container>
-              <Route path="/" component={HomeScreen} exact />
-              <Route path="/search/:keyword" component={HomeScreen} exact />
-              <Route path="/page/:pageNumber" component={HomeScreen} exact />
-              <Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact />
-              <Route path="/login" component={LoginScreen} />
-              <Route path="/register" component={RegisterScreen} />
-              <Route path="/profile" component={ProfileScreen} />
-              <Route path="/product/:id" component={ProductScreen} />
-              <Route path="/cart/:id?" component={CartScreen} />
-              <Route path="/shipping" component={ShippingScreen} />
-              <Route path="/payment" component={PaymentScreen} />
-              <Route path="/placeorder" component={PlaceorderScreen} />
-              <Route path="/order/:id" component={OrderScreen} />
-              <Route path="/admin/userlist" component={UserListScreen} exact/>
-              <Route path="/admin/userlist/:pageNumber" component={UserListScreen} exact/>
-              <Route path="/admin/user/:id/edit" component={UserEditScreen} />
-              <Route path="/admin/productlist" component={ProductListScreen} exact/>
-              <Route path="/admin/productlist/:pageNumber" component={ProductListScreen} exact/>
-              <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
-              <Route path="/admin/orderlist" component={OrderListScreen} exact/>
-              <Route path="/admin/orderlist/:pageNumber" component={OrderListScreen} exact/>
-          </Container>
-        </main>
-      <Footer />
-    </Router>
-  );
-
-}
+			<Route path="/" component={Client} exact />
+			<Footer />
+		</Router>
+	);
+};
 
 export default App;
